@@ -1,0 +1,7 @@
+API REST: Node.js (ES6) + Express + MongoDB + JWT [Curso actualizado 2022]
+https://www.youtube.com/watch?v=VrLvbzHVT9A&t=381s
+
+min 32:50
+
+node v16.15.0
+npm v8.9.0
