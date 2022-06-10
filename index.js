@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 // configurar la url que se usara para un determinada ruta
-app.use('/api/v1', authRutas);
+app.use('/api/v1/auth', authRutas);
 
 const puerto = process.env.PORT || 5000;
 app.listen(puerto, () => console.log('😊😊😊 http://localhost:5000'));

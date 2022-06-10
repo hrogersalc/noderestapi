@@ -1,9 +1,9 @@
-import express from "express";
+import { Router } from "express";
 import { login, registrar } from "../controllers/auth.controlador.js";
 import { body } from 'express-validator';
 import { validacionResultado } from "../middlewares/ValidacionResultado.js";
 
-const router = express.Router();
+const router = Router();
 
 router.post(
     // segmento de url
