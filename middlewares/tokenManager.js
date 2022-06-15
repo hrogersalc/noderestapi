@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { tokenErrores } from '../utils/generarToken.js';
 
 export const requiereToken = (req, res, next) => {
     try {
@@ -15,13 +16,6 @@ export const requiereToken = (req, res, next) => {
         next();
     } catch (error) {
         console.error(error);
-        const tokenErrores = {
-            "invalid signature": "La firma dek token no es válida",
-            "jwt expired": "El token ha expirado",
-            "invalid token": "El token no es válido",
-            "No Bearer": "El token no existe",
-            "jwt malformed": "Token mal formado"
-        };
         return res.status(401).send({error: tokenErrores[error.message]});
     }
 };

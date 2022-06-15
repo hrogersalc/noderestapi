@@ -23,3 +23,11 @@ export const generarRefreshToken = (uid, res) => {
         console.log(error);
     }
 };
+
+export const tokenErrores = {
+    "invalid signature": "La firma dek token no es válida",
+    "jwt expired": "El token ha expirado",
+    "invalid token": "El token no es válido",
+    "No Bearer": "El token no existe",
+    "jwt malformed": "Token mal formado"
+};

@@ -1,8 +1,9 @@
-import 'dotenv/config';
 import express from 'express';
+import cookieParser from 'cookie-parser';
+import 'dotenv/config';
 import './database/conexiondb.js';
 import authRutas from './routes/auth.rutas.js';
-import cookieParser from 'cookie-parser';
+import enlaceRutas from './routes/enlace.rutas.js'
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(cookieParser());
 
 // configurar la url que se usara para un determinada ruta
 app.use('/api/v1/auth', authRutas);
+app.use('/api/v1/enlaces', enlaceRutas);
 
 const puerto = process.env.PORT || 5000;
 app.listen(puerto, () => console.log('😊😊😊 http://localhost:5000'));

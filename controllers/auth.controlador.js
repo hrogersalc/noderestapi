@@ -1,5 +1,4 @@
 import {Usuario} from '../models/Usuario.js';
-import jwt from 'jsonwebtoken';
 import { generarRefreshToken, generarToken } from '../utils/generarToken.js';
 
 export const registrar = async (req, res) => {
@@ -14,8 +13,11 @@ export const registrar = async (req, res) => {
         await usuario.save();
 
         // generar el token JWT
+        const {token, expiracionToken} = generarToken(usuario.id);
+        // generar el refresh token e incluirlo dentro de una cookie
+        generarRefreshToken(usuario.id, res);
 
-        return res.status(201).json({ok: true});
+        return res.status(201).json({token, expiracionToken});
     } catch (error) {
         console.log(error);
         console.log(error.code);
@@ -65,26 +67,11 @@ export const infoUsuario = async (req, res) => {
 
 export const refreshToken = (req, res) => {
     try {
-        const refreshTokenCookie = req.cookies.refreshToken;
-        if (!refreshTokenCookie) {
-            throw new Error("No Bearer");
-        }
-        // verificamos ekl token de refresh y se obtien el uid
-        const {uid} = jwt.verify(refreshTokenCookie, process.env.CLAVE_REFRESH_JWT);
-        // generar el token JWT
-        const {token, expiracionToken} = generarToken(usuario.id);
-
+        const {token, expiracionToken} = generarToken(req.uid);
         return res.json({token, expiracionToken});        
     } catch (error) {
         console.error(error);
-        const tokenErrores = {
-            "invalid signature": "La firma dek token no es válida",
-            "jwt expired": "El token ha expirado",
-            "invalid token": "El token no es válido",
-            "No Bearer": "El token no existe",
-            "jwt malformed": "Token mal formado"
-        };
-        return res.status(401).send({error: tokenErrores[error.message]});
+        return res.status(500).json({error: error.message});
     }
 };
 
