@@ -48,9 +48,6 @@ export const eliminarEnlacePorID = async (req, res) => {
     try {
         // deconstruyendo params para obtener el id
         const {id} = req.params;
-
-        console.log(id);
-
         const enlace = await Enlace.findById(id);
         if (!enlace) {
             return res.status(404).json({error: "No existe un enlace con el ID indicado"});
