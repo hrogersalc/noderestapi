@@ -1,13 +1,14 @@
 import { Router } from 'express';
-import { buscarEnlacePorID, crearEnlace, eliminarEnlacePorID, listarEnlaces } from '../controllers/enlaces.controlador.js';
+import { actualizarEnlace, buscarEnlacePorEnlaceCorto, crearEnlace, eliminarEnlace, listarEnlaces } from '../controllers/enlaces.controlador.js';
 import { requiereToken } from '../middlewares/tokenManager.js';
-import { bodyEnlaceCrearValidador, paramsEnlaceValidador } from '../middlewares/validadorManager.js';
+import { bodyEnlaceValidador, paramsEnlaceValidador } from '../middlewares/validadorManager.js';
 
 const router = Router();
 
 router.get("/", requiereToken, listarEnlaces);
-router.get("/:id", requiereToken, buscarEnlacePorID);
-router.post("/", requiereToken, bodyEnlaceCrearValidador, crearEnlace);
-router.delete("/:id", requiereToken, paramsEnlaceValidador, eliminarEnlacePorID);
+router.get("/:enlaceCorto", buscarEnlacePorEnlaceCorto);
+router.post("/", requiereToken, bodyEnlaceValidador, crearEnlace);
+router.delete("/:id", requiereToken, paramsEnlaceValidador, eliminarEnlace);
+router.patch("/:id", requiereToken, paramsEnlaceValidador, bodyEnlaceValidador, actualizarEnlace);
 
 export default router;

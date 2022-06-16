@@ -45,7 +45,7 @@ export const bodyLoginValidador = [
     validacionResultado
 ];
 
-export const bodyEnlaceCrearValidador = [
+export const bodyEnlaceValidador = [
     body("enlaceLargo", "formato de enlace incorrecto")
         .trim()
         .notEmpty()
