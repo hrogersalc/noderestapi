@@ -26,6 +26,7 @@ app.use(
             }
             return callback("Error de acceso CORS no autorizado: " + origin, false);
         },
+        credentials: true,
     })
 );
 
